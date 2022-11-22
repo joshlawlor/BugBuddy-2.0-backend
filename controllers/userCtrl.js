@@ -1,6 +1,9 @@
 const User = require('../models/userModel')
 const jwt = require('jsonwebtoken')
 const SECRET = process.env.SECRET
+
+
+
 function createJWT(user) {
     console.log('JWT FUNCTION ', user)
     try {
@@ -45,7 +48,7 @@ async function login(req, res) {
 
 
 }
-
+//REMOVE BEFORE DEPLOYMENT
 const showAll = (req, res) => {
     User.find({}, (err, users) => {
         if (err) {

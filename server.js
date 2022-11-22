@@ -15,6 +15,7 @@ const postRoutes = require('./routes/postRoutes')
 //MIDDLEWARES
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
+app.use(require('./config/authorization'))
 // Need auth for token later on
 
 
