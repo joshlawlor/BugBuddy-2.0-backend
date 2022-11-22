@@ -1,13 +1,12 @@
 const mongoose = require('mongoose')
-const user = require('./userModel')
 
 const commentSchema = new mongoose.Schema({
     title: String,
     content: String,
-    author: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
-    },
+    // author: {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: 'User'
+    // },
     },
     { 
         timestamps: true
@@ -18,7 +17,7 @@ const commentSchema = new mongoose.Schema({
         title: String,
         content: String,
         comments: [commentSchema],
-        author: [user]
+        author: []
     }, 
     {
         timestamps: true
