@@ -48,6 +48,23 @@ async function login(req, res) {
 
 
 }
+
+const showPosts = (req, res) => {
+    const posts = req.user.posts
+    res.json(posts)
+}
+
+async function getUser(req,res){
+    try {
+        const user = await User.findOne({email: req.body.email});
+        if (!user) return res.status(401).json({ err: 'bad credentials'})
+        const token = createJWT(user)
+        res.json({token})
+    }catch (err){
+        return res.status(400).json({err: 'line 64'})
+    }
+}
+
 //REMOVE BEFORE DEPLOYMENT
 const showAll = (req, res) => {
     User.find({}, (err, users) => {
@@ -63,5 +80,7 @@ const showAll = (req, res) => {
 module.exports = {
     showAll,
     signUp,
-    login
+    login,
+    showPosts,
+    getUser
 }
