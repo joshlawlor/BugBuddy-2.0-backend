@@ -15,7 +15,7 @@ const showAll = (req,res) =>{
 
 const showOne = (req, res) => {
     let postId = req.params.id;
-
+    console.log('Show one ran')
     Post.findById({ _id: postId}, (err, post) => {
         if(err){
             res.status(400).json(err)
@@ -28,10 +28,13 @@ const showOne = (req, res) => {
 
 
 const create = (req,res) =>{
-    console.log('CREATE FUNCTION')
+    console.log('CREATE FUNCTION', req.body)
     const post = new Post(req.body)
     post.author.push(req.user.username)
+    console.log(post.category)
+
     post.save()
+    console.log(post)
     res.json(post)
 
     // Add post to author's posts library
