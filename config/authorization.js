@@ -13,7 +13,7 @@ module.exports = function(req,res, next) {
             if(err){
                 next(err)
             }else{
-                console.log('AUTHORIZED', decoded.user.username)
+                // console.log('AUTHORIZED', decoded.user.username)
                 
                 req.user = decoded.user;
                 next()
