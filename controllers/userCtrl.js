@@ -5,7 +5,7 @@ const SECRET = process.env.SECRET
 
 
 function createJWT(user) {
-    console.log('JWT FUNCTION ', user)
+    // console.log('JWT FUNCTION ', user)
     try {
         return jwt.sign(
             { user },
@@ -28,7 +28,7 @@ const signUp = (req, res) => {
 async function login(req, res) {
 
     try {
-        console.log('BODY', req.body)
+        // console.log('BODY', req.body)
         const user = await User.findOne({ email: req.body.email }).select('+password');
         console.log(user)
         if (!user) return res.status(401).json({ err: 'bad credentials' });
@@ -50,8 +50,17 @@ async function login(req, res) {
 }
 
 const showPosts = (req, res) => {
-    const posts = req.user.posts
-    res.json(posts)
+    User.findOne({email: req.user.email}, (err,user) => {
+        if(err){
+            res.status(400).json()
+            return
+        }
+        // console.log('PROFILE SHOW', user)
+        res.json(user.posts)
+
+    })
+    // const posts = req.user.posts
+    // res.json(posts)
 }
 
 async function getUser(req,res){
