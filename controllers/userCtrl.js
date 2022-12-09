@@ -1,6 +1,8 @@
 const User = require('../models/userModel')
 const jwt = require('jsonwebtoken')
 const SECRET = process.env.SECRET
+const Post = require('../models/postModel')
+
 
 
 
@@ -28,9 +30,8 @@ const signUp = (req, res) => {
 async function login(req, res) {
 
     try {
-        // console.log('BODY', req.body)
+        console.log('LOGIN', req.body)
         const user = await User.findOne({ email: req.body.email }).select('+password');
-        console.log(user)
         if (!user) return res.status(401).json({ err: 'bad credentials' });
 
         user.comparePassword(req.body.password, (err, isMatch) => {
@@ -50,14 +51,22 @@ async function login(req, res) {
 }
 
 const showPosts = (req, res) => {
-    User.findOne({email: req.user.email}, (err,user) => {
+    // User.findOne({email: req.user.email}, (err,user) => {
+    //     if(err){
+    //         res.status(400).json()
+    //         return
+    //     }
+    //     // console.log('PROFILE SHOW', user)
+    //     res.json(user.posts)
+
+    // })
+
+    Post.find({userId: req.user._id}, (err, posts) => {
         if(err){
             res.status(400).json()
             return
         }
-        // console.log('PROFILE SHOW', user)
-        res.json(user.posts)
-
+        res.json(posts)
     })
     // const posts = req.user.posts
     // res.json(posts)

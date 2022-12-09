@@ -11,10 +11,12 @@ const commentSchema = new mongoose.Schema({
 
     const postSchema = new mongoose.Schema({
         title: String,
+        summary: String,
         content: String,
         category: String,
         comments: [commentSchema],
-        author: [],
+        author: String,
+        userId : String,
     }, 
     {
         timestamps: true
