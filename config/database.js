@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const PORT = 4000;
 
 mongoose.connect( process.env.DATABASE_URL, {
-    useNewUrlParser: true
+    useNewUrlParser: true,
 })
 
 const db = mongoose.connection
